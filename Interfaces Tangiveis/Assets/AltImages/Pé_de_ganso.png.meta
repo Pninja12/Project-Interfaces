@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "P\xE9_de_ganso_0": -1959043338933241647
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

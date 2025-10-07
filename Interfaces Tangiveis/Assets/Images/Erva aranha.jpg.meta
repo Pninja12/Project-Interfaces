@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Erva aranha_0: -6086422968864729456
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Erva_formigueira_0: 259845659142170023
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

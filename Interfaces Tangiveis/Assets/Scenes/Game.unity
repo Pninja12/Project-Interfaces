@@ -427,6 +427,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 399269165150177668, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 424.8845
+      objectReference: {fileID: 0}
+    - target: {fileID: 399269165150177668, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 58.016
+      objectReference: {fileID: 0}
+    - target: {fileID: 399269165150177668, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000022888
+      objectReference: {fileID: 0}
+    - target: {fileID: 399269165150177668, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -305
+      objectReference: {fileID: 0}
     - target: {fileID: 1075328748852319866, guid: ad95c75be014d8142bb246da176fde87, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -457,6 +473,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1075328748852319866, guid: ad95c75be014d8142bb246da176fde87, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1075328748852319866, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1075328748852319866, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1075328748852319866, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1075328748852319866, guid: ad95c75be014d8142bb246da176fde87, type: 3}
@@ -507,13 +535,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1177366074837788004, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 414.4775
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177366074837788004, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177366074837788004, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -305
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212328256661175306, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -527
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631291322115819591, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1935.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631291322115819591, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 3949524497360908270, guid: ad95c75be014d8142bb246da176fde87, type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3949524497360908270, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_margin.z
+      value: 5.2035065
       objectReference: {fileID: 0}
     - target: {fileID: 3949524497360908270, guid: ad95c75be014d8142bb246da176fde87, type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5171145762056274825, guid: ad95c75be014d8142bb246da176fde87, type: 3}
       propertyPath: m_Name
@@ -521,19 +577,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5455736526828634400, guid: ad95c75be014d8142bb246da176fde87, type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5455736526828634400, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_margin.z
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 5455736526828634400, guid: ad95c75be014d8142bb246da176fde87, type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480046513805757463, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 7480046513805757463, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7550678028819277688, guid: ad95c75be014d8142bb246da176fde87, type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550678028819277688, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_margin.z
+      value: 0.00012207031
       objectReference: {fileID: 0}
     - target: {fileID: 7550678028819277688, guid: ad95c75be014d8142bb246da176fde87, type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071025646920794561, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 406.6722
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071025646920794561, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000011444
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071025646920794561, guid: ad95c75be014d8142bb246da176fde87, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -305
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
