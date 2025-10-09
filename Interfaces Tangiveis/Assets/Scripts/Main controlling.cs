@@ -13,6 +13,7 @@ public class Maincontrolling : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> uiText;
     [SerializeField] private List<GameObject> uiTextGameObject;
     [SerializeField] private TextMeshProUGUI thatOneText;
+    [SerializeField] private TextMeshProUGUI roundsText;
     [SerializeField] private List<Sprite> imagesList;
     [SerializeField] private List<Sprite> altImagesList;
 
@@ -43,6 +44,11 @@ public class Maincontrolling : MonoBehaviour
 
     void Update()
     {
+        if (round + 1 <= roundFinish)
+        {
+            roundsText.text = $"{round + 1} / {roundFinish}";
+        }
+        
         if (waitingNextRound) return; 
 
         if (Input.GetButtonDown("First Choice"))
@@ -123,7 +129,7 @@ public class Maincontrolling : MonoBehaviour
         }
 
         correctChoice = Random.Range(0, chosenImagesList.Count);
-        thatOneText.text = imagesList[chosenImagesList[correctChoice]].name[..^2];
+        thatOneText.text = $"{chosenImagesList[correctChoice] + 1}";
     }
 
     private IEnumerator FlashAndProceed(int chosenIndex, bool wasCorrect)
@@ -152,7 +158,7 @@ public class Maincontrolling : MonoBehaviour
             foreach (GameObject child in imagesObject)
                 child.SetActive(false);
 
-            thatOneText.text = $"You finished with {howManyRight} rights";
+            thatOneText.text = $"Acabaste com {howManyRight} certas!";
             StartCoroutine(WaitADamnMinute());
         }
 
