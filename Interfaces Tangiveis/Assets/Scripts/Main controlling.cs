@@ -201,7 +201,7 @@ public class Maincontrolling : MonoBehaviour
         }
 
         correctChoice = Random.Range(0, chosenImagesList.Count);
-        thatOneText.text = imagesList[chosenImagesList[correctChoice]].name[..^2];
+        thatOneText.text = imagesList[chosenImagesList[correctChoice]].name[..^2];*/
     }
 
     private IEnumerator FlashAndProceed(int chosenIndex, bool wasCorrect)
