@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using static GameStarter;
+using UnityEngine.InputSystem;
+using System.IO.Ports;
 
 public class Maincontrolling : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class Maincontrolling : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> uiText;
     [SerializeField] private List<GameObject> uiTextGameObject;
     [SerializeField] private TextMeshProUGUI thatOneText;
+    [SerializeField] private GameObject thatOneTextGameObject;
     [SerializeField] private List<Sprite> imagesList;
     [SerializeField] private List<Sprite> altImagesList;
 
@@ -22,17 +25,32 @@ public class Maincontrolling : MonoBehaviour
     private int correctChoice;
     private List<int> chosenImagesList = new List<int>();
     private List<int> allImages = new List<int>();
+    private List<int> usedImagesList = new List<int>();
+    private List<int> allImagesNotUsed = new List<int>();
+    int correctChoicePlace;
     private int howManyRight;
     private int round;
     private int roundFinish;
     private bool waitingNextRound = false;
 
+    int button = 0;
+
+    void OnMessageArrived(string msg)
+    {
+        button = int.Parse(msg);
+    }
+
     void Start()
     {
+        // vai buscar os dados ao ecrã inicial, qual nível escolhido
         roundFinish = GameData.rounds;
+
+        //Começa a ronda
         SetupRound();
 
-       
+        usedImagesList.Clear();
+
+       //verifica os outlines de cada imagem
         for (int i = 0; i < images.Count; i++)
         {
             var outlines = images[i].GetComponents<Outline>();
@@ -43,9 +61,10 @@ public class Maincontrolling : MonoBehaviour
 
     void Update()
     {
+
         if (waitingNextRound) return; 
 
-        if (Input.GetButtonDown("First Choice"))
+        if (Input.GetButtonDown("First Choice") || button == 1)
         {
             if (round == roundFinish) { SceneManager.LoadScene("Begin"); return; }
             chosenKey1++;
@@ -53,7 +72,7 @@ public class Maincontrolling : MonoBehaviour
             chosenKey3 = 0;
             Debug.Log("First Choice pressed -> chosenKey1 = " + chosenKey1);
         }
-        if (Input.GetButtonDown("Second Choice"))
+        if (Input.GetButtonDown("Second Choice") || button == 2)
         {
             if (round == roundFinish) { SceneManager.LoadScene("Begin"); return; }
             chosenKey1 = 0;
@@ -61,7 +80,7 @@ public class Maincontrolling : MonoBehaviour
             chosenKey3 = 0;
             Debug.Log("Second Choice pressed -> chosenKey2 = " + chosenKey2);
         }
-        if (Input.GetButtonDown("Third Choice"))
+        if (Input.GetButtonDown("Third Choice") || button == 3)
         {
             if (round == roundFinish) { SceneManager.LoadScene("Begin"); return; }
             chosenKey1 = 0;
@@ -71,6 +90,22 @@ public class Maincontrolling : MonoBehaviour
         }
 
         
+
+        if (Input.GetButton("Secret"))
+        {
+            thatOneTextGameObject.SetActive(true);
+        }
+        else if(round == roundFinish)
+        {
+            thatOneTextGameObject.SetActive(true);  
+        }
+        else
+        {
+            thatOneTextGameObject.SetActive(false);
+        }
+
+        button = 0;
+
         for (int i = 0; i < 3; i++)
         {
             bool selected = (i == 0 && chosenKey1 == 1) ||
@@ -93,9 +128,7 @@ public class Maincontrolling : MonoBehaviour
         if (chosenKey1 == 2 || chosenKey2 == 2 || chosenKey3 == 2)
         {
             int chosenIndex = chosenKey1 == 2 ? 0 : chosenKey2 == 2 ? 1 : 2;
-            bool isCorrect = (chosenIndex == correctChoice);
-
-            Debug.Log($"Confirm choice index={chosenIndex} correct={correctChoice} isCorrect={isCorrect}");
+            bool isCorrect = (chosenIndex == correctChoicePlace);
 
             if (isCorrect) howManyRight++;
 
@@ -107,10 +140,57 @@ public class Maincontrolling : MonoBehaviour
     {
         chosenImagesList.Clear();
         allImages.Clear();
+        allImagesNotUsed.Clear();
 
         for (int i = 0; i < imagesList.Count; i++)
             allImages.Add(i);
+            
+        //allImagesNotUsed
+        //usedImagesList
 
+        correctChoicePlace = Random.Range(0, 3);
+        
+        usedImagesList.Add(correctChoice);
+
+        for (int i = 0; i < allImages.Count; i++)
+        {
+            if (usedImagesList.Contains(allImages[i]))
+                continue;
+
+            allImagesNotUsed.Add(allImages[i]);
+        }
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            SetOutline(images[i], false, Color.clear);
+            if (i == correctChoicePlace)
+            {
+                int j = Random.Range(0, allImagesNotUsed.Count);
+                correctChoice = allImagesNotUsed[j];
+                chosenImagesList.Add(correctChoice);
+                images[i].sprite = imagesList[chosenImagesList[i]];
+                uiText[i].text = imagesList[chosenImagesList[i]].name[..^2];
+                allImagesNotUsed.RemoveAt(j);
+                continue;
+            }
+
+
+            int index = Random.Range(0, allImagesNotUsed.Count);
+            chosenImagesList.Add(allImagesNotUsed[index]);
+            images[i].sprite = imagesList[chosenImagesList[i]];
+            uiText[i].text = imagesList[chosenImagesList[i]].name[..^2];
+            allImagesNotUsed.RemoveAt(index);
+        }
+
+        for (int i = 0; i < allImages.Count; i++)
+        {
+            if (allImages.Contains(allImages[i]))
+                thatOneText.text = $"{correctChoice + 1}";
+        }
+        
+
+        /*
         for (int i = 0; i < 3; i++)
         {
             int index = Random.Range(0, allImages.Count);
@@ -119,11 +199,10 @@ public class Maincontrolling : MonoBehaviour
 
             images[i].sprite = imagesList[chosenImagesList[i]];
             uiText[i].text = imagesList[chosenImagesList[i]].name[..^2];
-            SetOutline(images[i], false, Color.clear);
-        }
+            
+        }*/
 
-        correctChoice = Random.Range(0, chosenImagesList.Count);
-        thatOneText.text = imagesList[chosenImagesList[correctChoice]].name[..^2];
+        
     }
 
     private IEnumerator FlashAndProceed(int chosenIndex, bool wasCorrect)
@@ -151,7 +230,7 @@ public class Maincontrolling : MonoBehaviour
 
             foreach (GameObject child in imagesObject)
                 child.SetActive(false);
-
+            thatOneTextGameObject.SetActive(true);
             thatOneText.text = $"You finished with {howManyRight} rights";
             StartCoroutine(WaitADamnMinute());
         }
