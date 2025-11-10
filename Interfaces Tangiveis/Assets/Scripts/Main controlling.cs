@@ -15,7 +15,6 @@ public class Maincontrolling : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> uiText;
     [SerializeField] private List<GameObject> uiTextGameObject;
     [SerializeField] private TextMeshProUGUI thatOneText;
-    [SerializeField] private GameObject thatOneTextGameObject;
     [SerializeField] private List<Sprite> imagesList;
     [SerializeField] private List<Sprite> altImagesList;
 
@@ -61,7 +60,6 @@ public class Maincontrolling : MonoBehaviour
 
     void Update()
     {
-
         if (waitingNextRound) return; 
 
         if (Input.GetButtonDown("First Choice") || button == 1)
@@ -199,10 +197,11 @@ public class Maincontrolling : MonoBehaviour
 
             images[i].sprite = imagesList[chosenImagesList[i]];
             uiText[i].text = imagesList[chosenImagesList[i]].name[..^2];
-            
-        }*/
+            SetOutline(images[i], false, Color.clear);
+        }
 
-        
+        correctChoice = Random.Range(0, chosenImagesList.Count);
+        thatOneText.text = imagesList[chosenImagesList[correctChoice]].name[..^2];
     }
 
     private IEnumerator FlashAndProceed(int chosenIndex, bool wasCorrect)
@@ -230,7 +229,7 @@ public class Maincontrolling : MonoBehaviour
 
             foreach (GameObject child in imagesObject)
                 child.SetActive(false);
-            thatOneTextGameObject.SetActive(true);
+
             thatOneText.text = $"You finished with {howManyRight} rights";
             StartCoroutine(WaitADamnMinute());
         }
