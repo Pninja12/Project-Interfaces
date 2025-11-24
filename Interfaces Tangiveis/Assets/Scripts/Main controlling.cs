@@ -15,8 +15,16 @@ public class Maincontrolling : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> uiText;
     [SerializeField] private List<GameObject> uiTextGameObject;
     [SerializeField] private TextMeshProUGUI thatOneText;
+    [SerializeField] private GameObject thatOneTextGameObject;
+    [SerializeField] private GameObject acertosPNG;
     [SerializeField] private List<Sprite> imagesList;
     [SerializeField] private List<Sprite> altImagesList;
+
+    [SerializeField] private AudioClip correctAudio;
+    [SerializeField] private AudioClip wrongAudio;
+    [SerializeField] private AudioClip[] allHelpingAudio;
+    [SerializeField] private AudioSource leftAudioSource;
+    [SerializeField] private AudioSource rightAudioSource;
 
     private int chosenKey1 = 0;
     private int chosenKey2 = 0;
@@ -60,6 +68,7 @@ public class Maincontrolling : MonoBehaviour
 
     void Update()
     {
+
         if (waitingNextRound) return; 
 
         if (Input.GetButtonDown("First Choice") || button == 1)
@@ -89,21 +98,25 @@ public class Maincontrolling : MonoBehaviour
 
         
 
-        if (Input.GetButton("Secret"))
+        if (Input.GetButton("Secret") || button == 4)
         {
             thatOneTextGameObject.SetActive(true);
+            rightAudioSource.clip = allHelpingAudio[correctChoice];
+            rightAudioSource.Play();
         }
         else if(round == roundFinish)
         {
-            thatOneTextGameObject.SetActive(true);  
+            thatOneTextGameObject.SetActive(true);
+            acertosPNG.SetActive(true);
         }
         else
         {
             thatOneTextGameObject.SetActive(false);
+            acertosPNG.SetActive(false);
         }
 
         button = 0;
-
+        /*
         for (int i = 0; i < 3; i++)
         {
             bool selected = (i == 0 && chosenKey1 == 1) ||
@@ -120,12 +133,12 @@ public class Maincontrolling : MonoBehaviour
                 images[i].sprite = imagesList[chosenImagesList[i]];
                 SetOutline(images[i], false, Color.clear);
             }
-        }
+        } */
 
        
-        if (chosenKey1 == 2 || chosenKey2 == 2 || chosenKey3 == 2)
+        if (chosenKey1 == 1 || chosenKey2 == 1 || chosenKey3 == 1)
         {
-            int chosenIndex = chosenKey1 == 2 ? 0 : chosenKey2 == 2 ? 1 : 2;
+            int chosenIndex = chosenKey1 == 1 ? 0 : chosenKey2 == 1 ? 1 : 2;
             bool isCorrect = (chosenIndex == correctChoicePlace);
 
             if (isCorrect) howManyRight++;
@@ -167,7 +180,7 @@ public class Maincontrolling : MonoBehaviour
                 int j = Random.Range(0, allImagesNotUsed.Count);
                 correctChoice = allImagesNotUsed[j];
                 chosenImagesList.Add(correctChoice);
-                images[i].sprite = imagesList[chosenImagesList[i]];
+                images[i].sprite = altImagesList[chosenImagesList[i]];
                 uiText[i].text = imagesList[chosenImagesList[i]].name[..^2];
                 allImagesNotUsed.RemoveAt(j);
                 continue;
@@ -176,7 +189,7 @@ public class Maincontrolling : MonoBehaviour
 
             int index = Random.Range(0, allImagesNotUsed.Count);
             chosenImagesList.Add(allImagesNotUsed[index]);
-            images[i].sprite = imagesList[chosenImagesList[i]];
+            images[i].sprite = altImagesList[chosenImagesList[i]];
             uiText[i].text = imagesList[chosenImagesList[i]].name[..^2];
             allImagesNotUsed.RemoveAt(index);
         }
@@ -197,11 +210,10 @@ public class Maincontrolling : MonoBehaviour
 
             images[i].sprite = imagesList[chosenImagesList[i]];
             uiText[i].text = imagesList[chosenImagesList[i]].name[..^2];
-            SetOutline(images[i], false, Color.clear);
-        }
+            
+        }*/
 
-        correctChoice = Random.Range(0, chosenImagesList.Count);
-        thatOneText.text = imagesList[chosenImagesList[correctChoice]].name[..^2];*/
+        
     }
 
     private IEnumerator FlashAndProceed(int chosenIndex, bool wasCorrect)
@@ -211,6 +223,16 @@ public class Maincontrolling : MonoBehaviour
         
         Color original = images[chosenIndex].color;
         images[chosenIndex].color = wasCorrect ? Color.green : Color.red;
+        if (wasCorrect)
+        {
+            leftAudioSource.clip = correctAudio;
+            leftAudioSource.Play();
+        }
+        else
+        {
+            leftAudioSource.clip = wrongAudio;
+            leftAudioSource.Play();
+        }
         yield return new WaitForSeconds(0.9f); 
         images[chosenIndex].color = original;
 
@@ -229,8 +251,8 @@ public class Maincontrolling : MonoBehaviour
 
             foreach (GameObject child in imagesObject)
                 child.SetActive(false);
-
-            thatOneText.text = $"You finished with {howManyRight} rights";
+            thatOneTextGameObject.SetActive(true);
+            thatOneText.text = $"{howManyRight}";
             StartCoroutine(WaitADamnMinute());
         }
 
